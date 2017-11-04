@@ -12,7 +12,7 @@ func toHTML(file []byte) string {
         if line != ""{
             switch string(line[0]) {
             case "#":
-                temp = temp + "<h1>" + line[1:] + "</h1>"
+                temp = temp + headerize(line)
             default:
                 // Bold Parser
                 for _, words := range(trim(line, "**")){
