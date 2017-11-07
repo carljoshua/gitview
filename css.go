@@ -6,6 +6,7 @@ import (
     "fmt"
 )
 
+// Fetches and returns the contents of the styles.css file
 func getCSS() string {
     path := os.Getenv("GOPATH")
     file, err := ioutil.ReadFile(path + "/src/github.com/carljoshua/gitview/styles.css")

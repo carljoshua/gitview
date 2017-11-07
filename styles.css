@@ -1,3 +1,59 @@
+/* Github Markdown Styles */
+/* Note: This is not an 100% exact copy of the style in github. */
+
 * {
-    font-family: sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
+    margin: 0px;
+}
+code {
+    font-family: Courier, monospace;
+    padding: 0.2em 3px;
+    font-size: 85%;
+    background: rgba(27,31,35,0.05);
+}
+p {
+    font-size: 16px;
+    color: rgb(36, 41, 46);
+    margin-bottom: 16px;
+    display: block;
+}
+.container {
+    margin: 0px 0px 0px 13.5%;
+    padding: 45px;
+    width: 73.1%;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    line-height: 1.5;
+}
+h1, h2, h3, h4, h5, h6 {
+    border-bottom: 1px solid #eaecef;
+    padding-bottom: 0.3em;
+    margin-bottom: 16px;
+    color: #24292e;
+}
+hr {
+    background: #e1e4e8;
+    margin: 24px 0;
+    border: 0;
+    height: 0.25em;
+    padding: 0;
+}
+pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background: #f6f8fa;
+    border-radius: 3px;
+    font-family: Courier, monospace;
+    margin: 1em 0px;
+    color: #24292e;
+}
+a {
+    color: #0366d6;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
 }

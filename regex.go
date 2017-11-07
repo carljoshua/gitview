@@ -1,11 +1,13 @@
 package main
 
 import (
-    "strings"
-    "strconv"
+    "regexp"
 )
 
-func trim(raw string, cutset string) []string  {
+// Returns a slice of string that are in between the cutset
+// e.g.     extract("This is **just** a test **of the** extract function", "**")
+//          returns [ just, of the ]
+func extract(raw string, cutset string) []string  {
     csl := len(cutset)
     pre := 0
     trimmed := ""
@@ -26,18 +28,38 @@ func trim(raw string, cutset string) []string  {
             trimmed = trimmed + string(c)
         }
     }
-
     return trimmed_set
 }
 
-func headerize(raw string) string {
-    hs := 0
-    for _, c := range(raw){
-        if c != '#'{
-            break
+// Returns url inside the line
+func getURL(raw string) []string {
+    url := regexp.MustCompile("(http|https)://+[a-zA-Z0-9:#@%/;$~_?\\+-=&]*")
+    return url.FindAllString(raw, -1)
+}
+
+// Returns the url and the alternative text
+func extractAnchorData(raw string) (string, string) {
+    var url, alt string
+    url_toggle := false
+    alt_toggle := false
+
+    for _, c := range(raw) {
+        if c == '[' {
+            alt_toggle = true
+        }else if c == ']' && alt_toggle {
+            alt_toggle = false
+        }else if alt_toggle {
+            alt = alt + string(c)
         }
-        hs++
+
+        if c == '(' {
+            url_toggle = true
+        }else if c == ')' && url_toggle {
+            url_toggle = false
+        }else if url_toggle {
+            url = url + string(c)
+        }
     }
 
-    return "<h" + strconv.Itoa(hs) + ">" + strings.Replace(raw, "#", "", -1) + "</h" + strconv.Itoa(hs) + ">"
+    return url, alt
 }

@@ -31,7 +31,8 @@ func main() {
             fmt.Printf("Cannot open the file in %s", *path)
             os.Exit(1)
         }
-        tmpl := "<html><head><style>" + getCSS() + "</style></head><body>" + toHTML(file) + "</body></html>"
+        tmpl := "<html><head><style>" + getCSS() + "</style></head><body><div class='container'>" +
+                toHTML(file) + "</div></body></html>"
         fmt.Fprintf(w, "%s", tmpl)
     })
 
