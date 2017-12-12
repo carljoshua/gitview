@@ -15,12 +15,14 @@ func toHTML(file []byte) string {
 
     for _, line := range(lines) {
         if line != ""{
-            if strings.TrimSpace(line)[0:2] == "* " {
-                list_toggle = 1
-            }else if strings.TrimSpace(line)[0:2] != "* " && list_toggle == 1{
-                temp = temp + "<ul>" + list + "</ul>"
-                list_toggle = 0
-                list = ""
+            if len(line) > 1 {
+                if strings.TrimSpace(line)[0:2] == "* " {
+                    list_toggle = 1
+                }else if strings.TrimSpace(line)[0:2] != "* " && list_toggle == 1{
+                    temp = temp + "<ul>" + list + "</ul>"
+                    list_toggle = 0
+                    list = ""
+                }
             }
 
             if line[0:1] == "#"{
@@ -29,10 +31,10 @@ func toHTML(file []byte) string {
             }else if line[0:1] == ">" {
                 // Adds Qoute Tag if the line starts with ">"
                 temp = temp + "<blockquote>" + line[1:] + "</blockquote>"
-            }else if line[0:3] == "---"{
+            }else if len(line) > 2 && line[0:3] == "---"{
                 // Adds a Line Break if the line starts with "---"
                 temp = temp + "<hr />"
-            }else if line[0:3] == "```"{
+            }else if len(line) > 2 && line[0:3] == "```"{
                 // Adds <pre> tags if the line starts with "```"
                 if !code_toggle {
                     temp = temp + "<pre>"
@@ -42,7 +44,7 @@ func toHTML(file []byte) string {
                     code_toggle = false
                 }
             }else if code_toggle {
-                temp = temp + line
+                temp = temp + line + "\n"
             }else{
                 line = applyStyle(line)
 
